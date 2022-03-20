@@ -11,6 +11,7 @@ import Footer from '../../components/footer'
 const Problems: NextPage<{ user: any, signOut: any }> = ({ user, signOut }: { user: any, signOut: any }) => {
   const router = useRouter()
   const courses = []
+  const eng_courses = []
   const information = [
     {
       faculty: {
@@ -165,23 +166,39 @@ const Problems: NextPage<{ user: any, signOut: any }> = ({ user, signOut }: { us
       <Grid.Container gap={2}>
         {courses.map((course, key) => {
           <Grid xs={12} md={4}>
-          <Card color={information.color}>
-            <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>
-              {course}
-            </Text>
-          </Card>
-        </Grid>
+            <Card color={information.color}>
+              <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>
+                {course}
+              </Text>
+            </Card>
+          </Grid>
         })}
 
       </Grid.Container>
 
       <Grid.Container gap={2}>
+        {information.map((information, key) => {
+          if (information.faculty.english.name === router.query.faculty) {
+            information.department.map((department, key) => {
+              if (department.english.name === router.query.department) {
+                courses.map((course, key) => {
+                  eng_courses.push(department.english.course[key])
+                })
+              }
+            })
+          }
+        })
+        }
+
         {courses.map((course, key) => (
           <Grid xs={12} md={4} key={key}>
-            <Card clickable  color="gradient">
-              <Text h3 css={{ textAlign: "center", fontWeight: '$bold', color: '$white' }}>
-                {course}
-              </Text>
+            {console.log(key)}
+            <Card clickable color="gradient">
+              <Link href={`${router.pathname}?faculty=${router.query.faculty}&department=${router.query.department}&course=${eng_courses[key]}`}>
+                <a>
+                  <Text h3 css={{ textAlign: "center", fontWeight: '$bold', color: '$white' }}>{course}</Text>
+                </a>
+              </Link>
             </Card>
           </Grid>
         ))}
