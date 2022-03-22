@@ -163,18 +163,6 @@ const Problems: NextPage<{ user: any, signOut: any }> = ({ user, signOut }: { us
         }
       })}
 
-      <Grid.Container gap={2}>
-        {courses.map((course, key) => {
-          <Grid xs={12} md={4}>
-            <Card color={information.color}>
-              <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>
-                {course}
-              </Text>
-            </Card>
-          </Grid>
-        })}
-
-      </Grid.Container>
 
       <Grid.Container gap={2}>
         {information.map((information, key) => {
@@ -192,11 +180,10 @@ const Problems: NextPage<{ user: any, signOut: any }> = ({ user, signOut }: { us
 
         {courses.map((course, key) => (
           <Grid xs={12} md={4} key={key}>
-            {console.log(key)}
             <Card clickable color="gradient">
               <Link href={`${router.pathname}?faculty=${router.query.faculty}&department=${router.query.department}&course=${eng_courses[key]}`}>
                 <a>
-                  <Text h3 css={{ textAlign: "center", fontWeight: '$bold', color: '$white' }}>{course}</Text>
+                  <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>{course}</Text>
                 </a>
               </Link>
             </Card>
