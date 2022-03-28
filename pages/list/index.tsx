@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
 import { Text, Button, Spacer, Card, Grid, Link } from '@nextui-org/react'
@@ -7,6 +8,8 @@ import '@aws-amplify/ui-react/styles.css'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 
+const courses = []
+const eng_courses = []
 const information = [
   {
     faculty: {
@@ -57,7 +60,7 @@ const information = [
         name: "応用生物科学部"
       },
       english: {
-        name: "applied_biological_sciences"
+        name: "applied_bbiological_sciences"
       }
     },
     department: [
@@ -79,7 +82,7 @@ const information = [
         english: {
           name: "food_and_life_sciences",
           course: ["molecular_life_science", "food_science"]
-        },
+        }
       }
     ],
     color: "secondary",
@@ -119,7 +122,8 @@ const information = [
   }
 ]
 
-const Home = ({ user, signOut }: any) => {
+const List = ({ user, signOut }: any) => {
+  const router = useRouter()
   return (
     <div className={styles.container}>
       <Head>
@@ -139,20 +143,52 @@ const Home = ({ user, signOut }: any) => {
         <Button onClick={signOut} color="gradient" auto ghost rounded>ログアウト</Button>
       </main>
 
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        {
+          information.map((information, key) => {
+            if (information.faculty.english.name === router.query.faculty)
+              return (<h1>学部: {information.faculty.japanese.name}</h1>)
+          })}
+        <h1>学部: {router.query.faculty}</h1>
+        <h1>学科: {router.query.department}</h1>
+        <h1>コース: {router.query.course}</h1>
+      </div>
+
+      {information.map((information, key) => {
+        if (information.faculty.english.name === router.query.faculty) {
+          information.department.map((department) => {
+            if (department.english.name === router.query.department) {
+              department.japanese.course.map((course, key) => {
+                courses.push(course)
+              })
+            }
+          })
+        }
+      })}
+
+
       <Grid.Container gap={2}>
-        {information.map((information, key) => (
+        {information.map((information, key) => {
+          if (information.faculty.english.name === router.query.faculty) {
+            information.department.map((department, key) => {
+              if (department.english.name === router.query.department) {
+                courses.map((course, key) => {
+                  eng_courses.push(department.english.course[key])
+                })
+              }
+            })
+          }
+        })
+        }
+
+        {courses.map((course, key) => (
           <Grid xs={12} md={4} key={key}>
-            <Card color={information.color}>
-              <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>
-                {information.faculty.japanese.name}
-              </Text>
-              {information.department.map((department, key) => (
-                <Link href={`/list?faculty=${encodeURIComponent(information.faculty.english.name)}&department=${encodeURIComponent(department.english.name)}`} key={key} color="white" icon>
-                  <a>
-                    <Text css={{ fontWeight: '$bold', color: '$white' }} span>・{department.japanese.name}</Text>
-                  </a>
-                </Link>
-              ))}
+            <Card clickable color="gradient">
+              <Link href={`${router.pathname}?faculty=${router.query.faculty}&department=${router.query.department}&course=${eng_courses[key]}`}>
+                <a>
+                  <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>{course}</Text>
+                </a>
+              </Link>
             </Card>
           </Grid>
         ))}
@@ -163,4 +199,4 @@ const Home = ({ user, signOut }: any) => {
   )
 }
 
-export default withAuthenticator(Home)
+export default withAuthenticator(List)
