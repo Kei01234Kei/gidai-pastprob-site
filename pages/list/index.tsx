@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
@@ -8,7 +8,7 @@ import '@aws-amplify/ui-react/styles.css'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 
-const List = ({ user, signOut }: any) => {
+const List = ({ user, signOut, subjectInfo }: any) => {
   const courses = []
   const eng_courses = []
   const information = [
@@ -166,8 +166,7 @@ const List = ({ user, signOut }: any) => {
         }
       })}
 
-
-      <Grid.Container gap={2}>
+      <Grid.Container gap={2} justify="center">
         {information.map((information, key) => {
           if (information.faculty.english.name === router.query.faculty) {
             information.department.map((department, key) => {
@@ -194,9 +193,39 @@ const List = ({ user, signOut }: any) => {
         ))}
       </Grid.Container>
 
+      <Grid.Container gap={2} justify="center">
+        {
+          subjectInfo.map(
+            (info) => {
+              return (
+                <Grid xs={12} md={4} key={info.subjectName}>
+                  <Card clickable bordered>
+                    <Link href={`/problems?subjectName=${info.subjectName}&yearOfStudent=${info.yearOfStudent}&semester=${info.semester}&teacher=${info.teacher}`}>
+                      <a>
+                        <Text h3>{info.subjectName}</Text>
+                        <Text weight="bold">学年: {info.yearOfStudent}</Text>
+                        <Text weight="bold">学期: {info.semester}</Text>
+                        <Text weight="bold">教授: {info.teacher}</Text>
+                      </a>
+                    </Link>
+                  </Card>
+                </Grid>
+              );
+            }
+          )
+        }
+      </Grid.Container>
+
       <Footer />
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { faculty, department, course } = ctx.query
+  const res = await fetch(`https://liwk0erekc.execute-api.ap-northeast-1.amazonaws.com/prod/getsubjectdata?faculty=${faculty}&department=${department}&course=${course}`)
+  const subjectInfo = await res.json()
+  return { props: { subjectInfo } }
 }
 
 export default withAuthenticator(List)
