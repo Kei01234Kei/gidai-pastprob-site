@@ -146,7 +146,7 @@ const Home = ({ user, signOut }: any) => {
                 {information.faculty.japanese.name}
               </Text>
               {information.department.map((department, key) => (
-                <Link href={`/list?faculty=${encodeURIComponent(information.faculty.english.name)}&department=${encodeURIComponent(department.english.name)}`} key={key} color="white" icon>
+                <Link href={`/list?faculty=${encodeURIComponent(information.faculty.english.name)}&department=${encodeURIComponent(department.english.name)}`} key={key} css={{ color: '$white' }} icon>
                   <a>
                     <Text css={{ fontWeight: '$bold', color: '$white' }} span>・{department.japanese.name}</Text>
                   </a>
