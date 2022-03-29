@@ -8,7 +8,7 @@ import '@aws-amplify/ui-react/styles.css'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 
-const List = ({ user, signOut, subjectInfo }: any) => {
+const List = ({ user, signOut, subjectData }: any) => {
   const courses = []
   const eng_courses = []
   const information = [
@@ -195,7 +195,7 @@ const List = ({ user, signOut, subjectInfo }: any) => {
 
       <Grid.Container gap={2} justify="center">
         {
-          subjectInfo.map(
+          subjectData.map(
             (info) => {
               return (
                 <Grid xs={12} md={4} key={info.subjectName}>
@@ -205,12 +205,12 @@ const List = ({ user, signOut, subjectInfo }: any) => {
                         <Text h3>{info.subjectName}</Text>
                         <Text weight="bold">学年: {info.yearOfStudent}</Text>
                         <Text weight="bold">学期: {info.semester}</Text>
-                        <Text weight="bold">教授: {info.teacher}</Text>
+                        <Text weight="bold">先生: {info.teacher}</Text>
                       </a>
                     </Link>
                   </Card>
                 </Grid>
-              );
+              )
             }
           )
         }
@@ -224,8 +224,9 @@ const List = ({ user, signOut, subjectInfo }: any) => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { faculty, department, course } = ctx.query
   const res = await fetch(`https://liwk0erekc.execute-api.ap-northeast-1.amazonaws.com/prod/getsubjectdata?faculty=${faculty}&department=${department}&course=${course}`)
-  const subjectInfo = await res.json()
-  return { props: { subjectInfo } }
+  const subjectData = await res.json()
+  console.log(subjectData)
+  return { props: { subjectData } }
 }
 
 export default withAuthenticator(List)
