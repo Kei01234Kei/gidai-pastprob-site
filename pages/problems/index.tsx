@@ -28,7 +28,7 @@ const Problems = ({ user, signOut, problemData }: any) => {
         <Button onClick={signOut} color="gradient" auto ghost rounded>ログアウト</Button>
         {
           problemData.map(
-            (problem) => {
+            (problem: any) => {
               return (
                 <>
                   <Text key={problem.imageURL}>{problem.imageURL}</Text>

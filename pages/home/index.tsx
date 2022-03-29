@@ -49,7 +49,6 @@ const Home = ({ user, signOut }: any) => {
           }
         }
       ],
-      color: "primary"
     },
     {
       faculty: {
@@ -82,7 +81,6 @@ const Home = ({ user, signOut }: any) => {
           },
         }
       ],
-      color: "secondary",
     },
     {
       faculty: {
@@ -115,7 +113,6 @@ const Home = ({ user, signOut }: any) => {
           }
         }
       ],
-      color: "success"
     }
   ]
 
@@ -141,7 +138,7 @@ const Home = ({ user, signOut }: any) => {
       <Grid.Container gap={2}>
         {information.map((information, key) => (
           <Grid xs={12} md={4} key={key}>
-            <Card color={information.color}>
+            <Card color="gradient">
               <Text h3 css={{ fontWeight: '$bold', color: '$white' }}>
                 {information.faculty.japanese.name}
               </Text>

@@ -9,8 +9,8 @@ import Header from '../../components/header'
 import Footer from '../../components/footer'
 
 const List = ({ user, signOut, subjectData }: any) => {
-  const courses = []
-  const eng_courses = []
+  const courses: any = []
+  const eng_courses: any = []
   const information = [
     {
       faculty: {
@@ -53,7 +53,6 @@ const List = ({ user, signOut, subjectData }: any) => {
           }
         }
       ],
-      color: "primary"
     },
     {
       faculty: {
@@ -86,7 +85,6 @@ const List = ({ user, signOut, subjectData }: any) => {
           }
         }
       ],
-      color: "secondary",
     },
     {
       faculty: {
@@ -119,7 +117,6 @@ const List = ({ user, signOut, subjectData }: any) => {
           }
         }
       ],
-      color: "success"
     }
   ]
   const router = useRouter()
@@ -171,7 +168,7 @@ const List = ({ user, signOut, subjectData }: any) => {
           if (information.faculty.english.name === router.query.faculty) {
             information.department.map((department, key) => {
               if (department.english.name === router.query.department) {
-                courses.map((course, key) => {
+                courses.map((key: number) => {
                   eng_courses.push(department.english.course[key])
                 })
               }
@@ -180,7 +177,7 @@ const List = ({ user, signOut, subjectData }: any) => {
         })
         }
 
-        {courses.map((course, key) => (
+        {courses.map((course: any, key: number) => (
           <Grid xs={12} md={4} key={key}>
             <Card clickable color="gradient">
               <Link href={`${router.pathname}?faculty=${router.query.faculty}&department=${router.query.department}&course=${eng_courses[key]}`}>
@@ -196,7 +193,7 @@ const List = ({ user, signOut, subjectData }: any) => {
       <Grid.Container gap={2} justify="center">
         {
           subjectData.map(
-            (info) => {
+            (info: any) => {
               return (
                 <Grid xs={12} md={4} key={info.subjectName}>
                   <Card clickable bordered>
