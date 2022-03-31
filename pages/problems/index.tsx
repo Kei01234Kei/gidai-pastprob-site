@@ -1,6 +1,5 @@
 import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
 import { Text, Button, Spacer, Image } from '@nextui-org/react'
 import { withAuthenticator } from '@aws-amplify/ui-react'
