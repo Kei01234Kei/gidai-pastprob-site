@@ -168,7 +168,7 @@ const List = ({ user, signOut, subjectData }: any) => {
           if (information.faculty.english.name === router.query.faculty) {
             information.department.map((department, key) => {
               if (department.english.name === router.query.department) {
-                courses.map((key: number) => {
+                courses.map((_: string, key: number) => {
                   eng_courses.push(department.english.course[key])
                 })
               }
