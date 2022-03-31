@@ -146,9 +146,9 @@ const List = ({ user, signOut, subjectData }: any) => {
             if (information.faculty.english.name === router.query.faculty)
               return (<h1>学部: {information.faculty.japanese.name}</h1>)
           })}
-        <h1>学部: {router.query.faculty}</h1>
-        <h1>学科: {router.query.department}</h1>
-        <h1>コース: {router.query.course}</h1>
+        <Text h1>学部: {router.query.faculty}</Text>
+        <Text h1>学科: {router.query.department}</Text>
+        <Text h1>コース: {router.query.course}</Text>
       </div>
 
       {information.map((information, key) => {
