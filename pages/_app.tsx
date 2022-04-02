@@ -8,6 +8,18 @@ Amplify.configure({
     region: 'ap-northeast-1',
     userPoolId: 'ap-northeast-1_l9VF9YzCu',
     userPoolWebClientId: 'ev6skdtd0gl92ajtq9u8g3epa'
+  },
+  API: {
+    endpoints: [
+      {
+        name: 'prod',
+        endpoint: 'https://liwk0erekc.execute-api.ap-northeast-1.amazonaws.com/prod'
+      },
+      {
+        name: 'dev',
+        endpoint: 'https://liwk0erekc.execute-api.ap-northeast-1.amazonaws.com/dev'
+      }
+    ]
   }
 })
 
