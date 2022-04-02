@@ -220,7 +220,7 @@ const List = ({ user, signOut, subjectData }: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { faculty, department, course } = ctx.query
-  const res = await fetch(`https://liwk0erekc.execute-api.ap-northeast-1.amazonaws.com/prod/getsubjectdata?faculty=${faculty}&department=${department}&course=${course}`)
+  const res = await fetch(`https://liwk0erekc.execute-api.ap-northeast-1.amazonaws.com/dev/getsubjectdata?faculty=${faculty}&department=${department}&course=${course}`)
   const subjectData = await res.json()
   console.log(subjectData)
   return { props: { subjectData } }
