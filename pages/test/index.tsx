@@ -1,7 +1,6 @@
 import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import axios from 'axios'
 import styles from '../../styles/Home.module.css'
 import { Text, Button, Spacer, Card, Grid, Link } from '@nextui-org/react'
 import { API, Auth } from 'aws-amplify'
